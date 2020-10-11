@@ -1,9 +1,8 @@
-
-
 <template>
   <div class="nav">
     <ul>
-    <!-- router-link相当于a，
+      <!--声明式导航
+       router-link相当于a，
     to后为跳转的地址，
     默认生成为a  tag="li"转化为li -->
       <router-link to="/film/nowplaying" tag="li" active-class="active">
@@ -18,7 +17,6 @@
 </template>
 <!-- scoped只在本页面进行渲染-->
 <style lang="scss" scoped>
-
 .nav {
   width: 100%;
   height: 50px;

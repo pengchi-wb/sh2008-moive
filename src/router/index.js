@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 import centerRouter from "./routes/center";
 import cinemaRouter from "./routes/cinema";
 import filmRouter from "./routes/film";
+import detailRouter from "./routes/detail";
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
   centerRouter,
   cinemaRouter,
   filmRouter,
+  detailRouter
 ];
 
 const router = new VueRouter({
