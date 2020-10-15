@@ -16,3 +16,10 @@ export const comingSoonListUrl=
 export const moiveDetailUrl=
 "gateway?k=1575562&filmId="
 
+//影院页面
+export const cinemaListUrl=
+"gateway?cityId=110100&ticketFlag=1&k=8263975"
+
+//城市导航页面
+export const cityListUrl=
+"gateway?k=6886714"

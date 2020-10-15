@@ -24,6 +24,10 @@ axios.interceptors.request.use(
     if (info == "info") {
       host = "mall.film-ticket.film.info";
     }
+    //城市列表页面
+    if (info == "city") {
+      host = "mall.film-ticket.city.list";
+    }
 
 
     //设置herder头

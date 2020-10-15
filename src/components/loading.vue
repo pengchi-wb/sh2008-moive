@@ -1,4 +1,7 @@
+
+<!-- loading效果 -->
 <template>
+
     <div class="box">
         <div class="out-box"></div>
         <div class="inner-box"></div>

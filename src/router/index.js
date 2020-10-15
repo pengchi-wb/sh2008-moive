@@ -10,6 +10,10 @@ import centerRouter from "./routes/center";
 import cinemaRouter from "./routes/cinema";
 import filmRouter from "./routes/film";
 import detailRouter from "./routes/detail";
+import cityRouter from "./routes/city";
+import vuexRouter from "./routes/vuex";
+import loginRouter from "./routes/login";
+
 
 const routes = [
   {
@@ -21,7 +25,10 @@ const routes = [
   centerRouter,
   cinemaRouter,
   filmRouter,
-  detailRouter
+  detailRouter,
+  cityRouter,
+  vuexRouter,
+  loginRouter
 ];
 
 const router = new VueRouter({

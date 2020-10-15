@@ -1,6 +1,7 @@
 
-
+<!-- 尾部公共 -->
 <template>
+
   <div class="nav">
     <ul>
       <router-link to="/film" active-class="active" tag="li">
@@ -41,6 +42,7 @@ export default {
     background: #fff;
     color: #7a7e83;
     width: 100%;
+    z-index: 200;
 
     ul {
         display: flex;
