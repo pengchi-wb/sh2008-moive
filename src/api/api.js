@@ -10,10 +10,14 @@ import {
   moiveDetailUrl,
   cinemaListUrl,
   cityListUrl,
+  loginUrl,
+  centerUrl,
+
 } from "@/config/url";
 
 //请求正在热映的列表数据
 export const nowPlayingListData = (pageNum) => {
+  http.defaults.headers.authorization = "";
   // http.default.headers.info="";
   http.defaults.headers.info = "";
   return http.get(nowPlayingListUrl + pageNum);
@@ -21,12 +25,14 @@ export const nowPlayingListData = (pageNum) => {
 
 //请求即将上映的列表数据
 export const comingSoonListData = (pageNum) => {
+  http.defaults.headers.authorization = "";
   http.defaults.headers.info = "";
   return http.get(comingSoonListUrl + pageNum);
 };
 
 //请求详情页数据
 export const moiveDetailData = (filmId) => {
+  http.defaults.headers.authorization = "";
   //设置请求头
   http.defaults.headers.info = "info";
   return http.get(moiveDetailUrl + filmId);
@@ -34,6 +40,7 @@ export const moiveDetailData = (filmId) => {
 
 //请求影院列表数据
 export const cinemaListData = (filmId) => {
+  http.defaults.headers.authorization = "";
   //设置请求头
   http.defaults.headers.info = "cinema";
   return http.get(cinemaListUrl);
@@ -41,6 +48,7 @@ export const cinemaListData = (filmId) => {
 
 //请求城市列表页数据
 export const cityListData = async () => {
+  http.defaults.headers.authorization = "";
   //设置请求头
   http.defaults.headers.info = "city";
   let ret = await http.get(cityListUrl);
@@ -63,7 +71,9 @@ export const cityListData = async () => {
 
   codeList.forEach((e) => {
     //与城市信息的pinyin首字母作比较
-    let tempArr = cities.filter((item) => e.toLowerCase() == item.pinyin.substr(0, 1));
+    let tempArr = cities.filter(
+      (item) => e.toLowerCase() == item.pinyin.substr(0, 1)
+    );
     if (tempArr.length > 0) {
       indexList.push(e);
       dataList.push({
@@ -73,6 +83,21 @@ export const cityListData = async () => {
     }
   });
 
- //返回数据
- return Promise.resolve([dataList, indexList]);
+  //返回数据
+  return Promise.resolve([dataList, indexList]);
+};
+
+//获取用户登录信息的数据
+export const userLogin = (data) => {
+  return http.post(loginUrl, data);
+};
+
+// 获取用户个人信息
+export const userInfo = (_token) => {
+  
+  http.defaults.headers.authorization = _token;
+
+  //响应拦截器
+ 
+  return http.get(centerUrl);
 };

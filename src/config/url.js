@@ -23,3 +23,9 @@ export const cinemaListUrl=
 //城市导航页面
 export const cityListUrl=
 "gateway?k=6886714"
+
+//个人中心相关接口
+// 登录页面验证（自写接口）
+export const loginUrl="http://127.0.0.1:3000/api/v1/login"
+
+export const centerUrl="http://127.0.0.1:3000/api/v1/user_info"

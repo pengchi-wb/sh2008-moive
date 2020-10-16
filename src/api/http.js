@@ -29,15 +29,35 @@ axios.interceptors.request.use(
       host = "mall.film-ticket.city.list";
     }
 
+    axios.interceptors.response.use(
 
+      function(response) {
+        if(axios.defaults.headers.authorization){
+          response.data.user_info.gender = response.data.user_info.gender ? "女"
+          : "男";
+        }else{
+          response.data = response.data
+        }
+        
+          return response
+      },
+      function(error) {
+        //错误处理
+      });
     //设置herder头
+    if(config.headers.authorization){
+      config.headers = {
+        "authorization":config.headers.authorization
+      };
+    }else{
+      config.headers = {
+        "X-Client-Info":
+          '{"a":"3000","ch":"1002","v":"5.0.4","e":"16022376242886965347221505","bc":"110100"}',
+  
+        "X-Host": host,
+      };
+    }
     
-    config.headers = {
-      "X-Client-Info":
-        '{"a":"3000","ch":"1002","v":"5.0.4","e":"16022376242886965347221505","bc":"110100"}',
-
-      "X-Host": host,
-    };
     return config;
   },
   function(err) {

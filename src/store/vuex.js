@@ -11,6 +11,7 @@ export default new Vuex.Store({
     //存储全局共享数据
     // count: 0,
     city: "北京",
+    _token: "",
   },
   // 2.修改store中的数据
   mutations: {
@@ -18,19 +19,22 @@ export default new Vuex.Store({
     //   state.count += step;
     // },
     //城市名称
-    setCity:function(state,cityName){
-      state.city=cityName
-    }
+    setCity: function(state, cityName) {
+      state.city = cityName;
+    },
+    updataToken: function(state, _token) {
+      state._token = _token;
+      //键值对关系
+      localStorage.setItem("_token", _token);
+    },
   },
   //3.异步代码
   actions: {
-addAsync:function(context,step){
-    setTimeout(()=>{
-        context.commit('add',step)
-    },4000)
-},
-
-
+    addAsync: function(context, step) {
+      setTimeout(() => {
+        context.commit("add", step);
+      }, 4000);
+    },
   },
   //4.
   // getters: {
