@@ -30,7 +30,12 @@
         <!-- 演职表循环显示 -->
         <div class="cast">
           <p>演职人员</p>
-          <Swiper :key="'actors_' + film.actors.length">
+          <Swiper
+            :key="'actors_' + film.actors.length"
+            class="SwiperOne"
+            className="SwiperOne"
+            PerView="4"
+          >
             <div
               v-for="(item, index) in film.actors"
               :key="index"
@@ -45,7 +50,12 @@
         <div class="clicer"></div>
         <div class="stage">
           <p>剧照</p>
-          <swiper :key="'photos_' + film.photos.length">
+          <Swiper
+            :key="'photos_' + film.photos.length"
+            class="SwiperTwo"
+            className="SwiperTwo"
+            PerView="2"
+          >
             <div
               v-for="(item, index) in film.photos"
               :key="index"
@@ -53,11 +63,11 @@
             >
               <div class="gaibian"><img :src="film.photos[index]" /></div>
             </div>
-          </swiper>
+          </Swiper>
         </div>
       </div>
     </div>
-    <div class="goSchedule ">
+    <div class="goSchedule">
       选座购票
     </div>
   </div>
@@ -69,8 +79,6 @@ import { moiveDetailData } from "@/api/api";
 import moment from "moment";
 
 import Swiper from "@/components/swiper";
-
-import swiper from "@/components/swiper";
 
 import Bscroll from "better-scroll";
 
@@ -88,7 +96,7 @@ export default {
     this.height = document.documentElement.clientHeight - 100;
 
     let ret = await moiveDetailData(this.$route.params.filmId);
-console.log(ret);
+    console.log(ret);
     this.film = ret.data.data.film;
     // console.log(this.film);
   },
@@ -101,7 +109,6 @@ console.log(ret);
 
   components: {
     Swiper,
-    swiper,
   },
   methods: {
     goBack: function() {
@@ -122,31 +129,13 @@ console.log(ret);
       pullDownRefresh: true,
       click: true,
     });
-    //获取拖动高度
-    // this.bs.on("scroll", (position) => {
-    //   // console.log( position.y)
-    //   if (position.y > 20) {
-    //     console.log(position.y);
-    //     // document.querySelector(".film-header").style.top = 0+'px';
-    //     // document.querySelector(".film-header").style.left = 0+'px';
-    //     document.querySelector(".title").style.color = '#000';
-    //     document.querySelector(".title").style.backgroundColor='#fff';
-
-    //   }else{
-    //     document.querySelector(".title").style.color = 'transparent';
-        
-      
-    //   }
-    // });
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .scroll {
-  // overflow: hidden;
-  height: 100%;
-
+  overflow: hidden;
   .film-header {
     position: fixed;
     background-color: hsla(0, 0%, 100%, 0);
@@ -155,7 +144,7 @@ console.log(ret);
     width: 100%;
     height: 44px;
     z-index: 9999;
-    top:0;
+    top: 0;
     left: 0;
 
     .goBack {
@@ -166,18 +155,17 @@ console.log(ret);
       img {
         width: 30px;
       }
-     
     }
-     .title {
-        font-size: 17px;
-        line-height: 44px;
-        width: 100%;
-        text-align: center;
-      }
+    .title {
+      font-size: 17px;
+      line-height: 44px;
+      width: 100%;
+      text-align: center;
+    }
   }
   .detail {
     height: 700px;
-    padding-bottom: 75px;
+    padding-bottom: 100px;
 
     .img {
       width: 100%;
@@ -188,9 +176,6 @@ console.log(ret);
 
       img {
         width: 100%;
-        height: 100%;
-        // position: absolute;
-        // top: 50%;
       }
     }
     .film {
@@ -221,11 +206,14 @@ console.log(ret);
         margin-top: 5px;
       }
       div:nth-of-type(5) {
-        height: 38px !important;
+        height: 38px;
         overflow: hidden;
-        margin-top: 15px;
+        margin-top: 10px;
         font-size: 13px;
         color: #797d82;
+        //      overflow: hidden;
+        // text-overflow: ellipsis;
+        // white-space: nowrap;
       }
     }
     .clicer {
@@ -247,8 +235,6 @@ console.log(ret);
       .swiper-slide {
         img {
           width: 80px;
-          height: 90px;
-          // margin-left: 18px;
         }
       }
       span {
@@ -265,23 +251,30 @@ console.log(ret);
       }
     }
     .stage {
+      // width: 100%;
+      height: 240px;
       margin-left: 10px;
       p {
         margin-bottom: 8px;
       }
-      .swiper-slide {
-        margin-right: 0;
-        margin-bottom: 60px;
-      }
-      img {
-        width: 80px;
-        height: 160px;
-        margin-right: 10px;
+      .SwiperTwo {
+        width: 100%;
+        .gaibian {
+          width: 100%;
+          height: 140px;
+          padding-right: 10px;
+          
+          img {
+            width: 95%;
+            // height: 100%;
+            margin-right: 10px;
+          }
+        }
       }
     }
   }
   .goSchedule {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     height: 49px;

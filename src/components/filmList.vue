@@ -33,7 +33,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -54,18 +53,18 @@ export default {
       flag: true,
 
       // 拼接数据
-      data:[]
+      data: [],
     };
   },
   props: ["list", "type"],
   components: {
     loading,
   },
- 
+
   // 生命周期
   created() {
     //进入页面后，将父传子的list数据转交给data进行存储
-    this.data=this.list
+    this.data = this.list;
     //判断数据是否已经获取
     if (this.data.length > 0) {
       this.loading = false;
@@ -77,12 +76,12 @@ export default {
   filters: {
     parseActors: function(value) {
       let actors = "";
-      if (value){
+      if (value) {
         value.forEach((e) => {
-        actors += e.name + " ";
-      });
-      }else{
-        actors='暂无主演'
+          actors += e.name + " ";
+        });
+      } else {
+        actors = "暂无主演";
       }
       return actors;
     },
@@ -97,7 +96,6 @@ export default {
     //定义获取数据的方法
     getData: async function() {
       if (this.flag) {
-
         this.pageNum++;
 
         if (this.type == 1) {
@@ -111,24 +109,22 @@ export default {
         if (ret.data.data.films.length < 10) {
           this.flag = false;
         }
-       //将数据处理好后进行新增进列表
-       this.data=this.data.concat(ret.data.data.films)
+        //将数据处理好后进行新增进列表
+        this.data = this.data.concat(ret.data.data.films);
       }
-      
     },
   },
 
   mounted() {
     this.height = document.documentElement.clientHeight - 100;
-   
   },
-  updated(){
-     this.bs = new Bscroll(".scroll", {
+  updated() {
+    this.bs = new Bscroll(".scroll", {
       pullUpLoad: true,
       pullDownRefresh: true,
       click: true,
     });
-    
+
     this.bs.on("pullingUp", () => {
       this.getData();
       this.bs.finishPullUp();
@@ -138,17 +134,16 @@ export default {
       this.bs.finishPullDown();
     });
     //获取拖动高度
-    
-  }
-  
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .list {
   // overflow: hidden;
-margin-bottom: 60px;
-margin-top: 58px;
+  margin-bottom: 60px;
+  margin-top: 58px;
+  // padding-bottom: 100px;
   .item {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -156,12 +151,13 @@ margin-top: 58px;
     color: #797d82;
     font-size: 13px;
     border-bottom: 1px solid #ededed;
-  
 
     .left {
       width: 77px;
-      height: 100px;
-      margin-left: 20px;
+      height: 110px;
+      // margin-left: 10px;
+      padding-left: 10px;
+      padding-right: 5px;
       img {
         width: 66px;
         height: 100%;
@@ -208,7 +204,8 @@ margin-top: 58px;
       width: 15%;
       display: flex;
       align-items: center;
-      margin-right: 20px;
+      // margin-right: 20px;
+      padding-left: 10px;
 
       span {
         border: 1px solid #ff5f16;

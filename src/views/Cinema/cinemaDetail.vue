@@ -82,7 +82,6 @@ export default {
     this.cinemas = ret.data.data.cinema;
 
     let rets = await cinemaPhotoData(this.$route.data);
-
     this.data = rets.data.data.films;
 
     // this.height = document.documentElement.clientWidth - 100;
