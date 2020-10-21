@@ -13,6 +13,7 @@ import detailRouter from "./routes/detail";
 import cityRouter from "./routes/city";
 import vuexRouter from "./routes/vuex";
 import loginRouter from "./routes/login";
+import cinemaDetailRouter from "./routes/cinemaDetail";
 
 const routes = [
   {
@@ -28,6 +29,7 @@ const routes = [
   cityRouter,
   vuexRouter,
   loginRouter,
+  cinemaDetailRouter
 ];
 
 const router = new VueRouter({
@@ -37,11 +39,17 @@ const router = new VueRouter({
   routes,
 });
 
+//解决导航重复的报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+	return originalPush.call(this, location).catch(err => err)
+}
+
 // 路由守卫（防翻墙，登陆后才可访问）
 router.beforeEach((to, from, next) => {
   let arr = [
     //存需要登录的地址
-    "/cinema",
+    // "/cinema",
   ];
   if (arr.includes(to.path)) {
     //进入cinema页面之前需要验证用户是否登录

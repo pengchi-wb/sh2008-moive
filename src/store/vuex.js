@@ -11,6 +11,7 @@ export default new Vuex.Store({
     //存储全局共享数据
     // count: 0,
     city: "北京",
+    cityId:'110100',
     _token: "",
   },
   // 2.修改store中的数据
@@ -21,6 +22,13 @@ export default new Vuex.Store({
     //城市名称
     setCity: function(state, cityName) {
       state.city = cityName;
+
+      console.log(state.city);
+  
+    },
+    setCityId:function(state,cityId){
+      state.cityId=cityId;
+      console.log(state.cityId);
     },
     updataToken: function(state, _token) {
       state._token = _token;

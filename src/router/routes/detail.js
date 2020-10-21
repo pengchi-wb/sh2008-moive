@@ -1,6 +1,8 @@
 //详情页路由模块
 export default {
-  path: "/film/:filmId",
+  path: "/films/:filmId",
   name: "detail",
   component: () => import("@/views/Detail/Detail"),
 };
+
+// mall.film-ticket.schedule.list

@@ -12,7 +12,9 @@ import {
   cityListUrl,
   loginUrl,
   centerUrl,
-
+  cinemaDetailUrl,
+  cinemaHeadUrl,
+  cinemaPhotoUrl,
 } from "@/config/url";
 
 //请求正在热映的列表数据
@@ -30,7 +32,7 @@ export const comingSoonListData = (pageNum) => {
   return http.get(comingSoonListUrl + pageNum);
 };
 
-//请求详情页数据
+//请求电影详情页数据
 export const moiveDetailData = (filmId) => {
   http.defaults.headers.authorization = "";
   //设置请求头
@@ -38,12 +40,30 @@ export const moiveDetailData = (filmId) => {
   return http.get(moiveDetailUrl + filmId);
 };
 
+//请求影院详情页数据
+export const cinemaHeadData = (cinemaId) => {
+  http.defaults.headers.authorization = "";
+  http.defaults.headers.info = "cinemaHead";
+  return http.get(cinemaHeadUrl + cinemaId);
+};
+export const cinemaPhotoData = () => {
+  http.defaults.headers.authorization = "";
+  http.defaults.headers.info = "cinemaPhoto";
+  return http.get(cinemaPhotoUrl);
+};
+
+export const cinemaDetailData = () => {
+  http.defaults.headers.authorization = "";
+  http.defaults.headers.info = "schedule";
+  return http.get(cinemaDetailUrl);
+};
+
 //请求影院列表数据
-export const cinemaListData = (filmId) => {
+export const cinemaListData = (cityId) => {
   http.defaults.headers.authorization = "";
   //设置请求头
   http.defaults.headers.info = "cinema";
-  return http.get(cinemaListUrl);
+  return http.get(cinemaListUrl +cityId);
 };
 
 //请求城市列表页数据
@@ -94,10 +114,9 @@ export const userLogin = (data) => {
 
 // 获取用户个人信息
 export const userInfo = (_token) => {
-  
   http.defaults.headers.authorization = _token;
 
   //响应拦截器
- 
+
   return http.get(centerUrl);
 };

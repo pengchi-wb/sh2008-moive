@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="ct">
-      <p @click="jump">{{city}}</p>
+    <!-- <div class="ct">
+      <p @click="jump">{{ city }}</p>
       <p>电影</p>
-    </div>
+    </div> -->
     <FilmListTopNav :class="fixed ? 'fixed' : ''"></FilmListTopNav>
     <router-view></router-view>
   </div>
@@ -22,7 +22,7 @@ export default {
       fixed: false,
     };
   },
-  
+
   components: {
     FilmListTopNav,
   },
@@ -30,7 +30,7 @@ export default {
     window.addEventListener(
       "scroll",
       (e) => {
-       let top = document.documentElement.scrollTop;
+        let top = document.documentElement.scrollTop;
         // console.log(top);
 
         if (top > 10) {
@@ -44,34 +44,32 @@ export default {
       true
     );
   },
-  
- methods: {
-   jump: function() {
-        this.$router.push("/City");
-    }
 
+  methods: {
+    jump: function() {
+      this.$router.push("/City");
+    },
   },
-  computed:{
-   ...mapState(["city"]),
-}
-}
-
+  computed: {
+    ...mapState(["city"]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.ct{
+.ct {
   height: 40px;
   margin-top: 10px;
- padding-bottom: 10px;
+  padding-bottom: 10px;
   display: flex;
   line-height: 40px;
   border-bottom: 2px solid #eeeeee;
-  p:nth-of-type(1){
+  p:nth-of-type(1) {
     width: 15%;
     text-align: center;
   }
-  p:nth-of-type(2){
-   width: 80%;
+  p:nth-of-type(2) {
+    width: 80%;
     text-align: center;
     font-size: 17px;
     color: #191a1b;

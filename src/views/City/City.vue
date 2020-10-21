@@ -4,7 +4,7 @@
       <template v-for="(item,index) in dataList">
 
         <van-index-anchor :index="item.index" :key="index" />
-        <van-cell v-for="(v,k) in item.data" :title="v.name" :key="k" @click="chooseCity(v.name)"/>
+        <van-cell v-for="(v,k) in item.data" :title="v.name" :key="k" @click="chooseCity(v.name,v.cityId)"/>
       </template>
     </van-index-bar>
   </div>
@@ -47,9 +47,10 @@ export default {
   },
 
   methods: {
-    chooseCity: function(cityName) {
+    chooseCity: function(cityName,cityId) {
         // 将数据写到vuex中
         this.$store.commit('setCity',cityName);
+         this.$store.commit('setCityId',cityId);
         this.$router.go(-1);
     },
   

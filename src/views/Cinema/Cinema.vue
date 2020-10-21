@@ -8,7 +8,7 @@
           data-enter-time="1602598315"
           data-click-fun="track_f_400711"
         >
-          <span  @click="jump">{{city}}</span>
+          <span @click="jump">{{ city }}</span>
           <img
             data-v-4070467a=""
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"
@@ -81,17 +81,25 @@
         /></label>
       </div>
     </div>
-    <div>
-      <div class="big" v-for="(item, index) in cinemas" :key="index">
-        <div class="space">
-          <p>{{ item.name }}</p>
-          <span><b>￥</b>{{ item.lowPrice / 100 }}<i>起</i></span>
-        </div>
-        <div class="site">
-          <p>
-            {{ item.address }}
-          </p>
-          <span>距离未知</span>
+    <div class="scroll" :style="{ height: height + 'px' }">
+      <div class="mag">
+        <loading v-if="loading"></loading>
+        <div
+          class="big"
+          v-for="(item, index) in cinemas"
+          :key="index"
+          @click="godetail(item.cinemaId)"
+        >
+          <div class="space">
+            <p>{{ item.name }}</p>
+            <span><b>￥</b>{{ item.lowPrice / 100 }}<i>起</i></span>
+          </div>
+          <div class="site">
+            <p>
+              {{ item.address }}
+            </p>
+            <span>距离未知</span>
+          </div>
         </div>
       </div>
     </div>
@@ -99,33 +107,67 @@
 </template>
 
 <script>
+import loading from "@/components/loading";
 import { cinemaListData } from "@/api/api";
-
+import Bscroll from "better-scroll";
 import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       cinemas: [],
+      loading: true,
+      height: 0,
+      bs: null,
     };
   },
-  async mounted() {
-    let ret = await cinemaListData();
-    this.cinemas = ret.data.data.cinemas;
+  components: {
+    loading,
   },
-   methods: {
-   jump: function() {
-        this.$router.push("/City");
+  async mounted() {
+    let ret = await cinemaListData(this.$store.state.cityId);
+
+    this.cinemas = ret.data.data.cinemas;
+
+    this.height = document.documentElement.clientHeight - 100;
+
+    if (this.cinemas.length > 0) {
+      this.loading = false;
+    } else {
+      this.loading = true;
     }
   },
-   computed:{
-   ...mapState(["city"]),
-}
+  methods: {
+    jump: function() {
+      this.$router.push("/City");
+    },
+    godetail: function(cinemaId) {
+      //跳转至detail页面，传递filmId数据
+      this.$router.push({ name: "cinemadetail", params: { cinemaId } });
+    },
+  },
+  computed: {
+    ...mapState(["city","cityId"]),
+
+  },
+
+  // mounted() {
+  //   this.height = document.documentElement.clientHeight - 160;
+
+  // },
+  updated() {
+    this.bs = new Bscroll(".scroll", {
+      pullUpLoad: true,
+      pullDownRefresh: true,
+      click: true,
+    });
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 header {
+  margin-bottom: 50px;
   z-index: 2000;
   position: fixed;
   top: 0;
@@ -141,7 +183,7 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  // margin-bottom: 10px;
+
   .left {
     float: left;
     height: 44px;
@@ -153,96 +195,103 @@ header {
     height: 44px;
     margin-right: 15px;
     font-size: 13px;
-    
   }
   .title {
-      text-align: center;
-      font-size: 17px;
-      color: #191a1b;
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+    text-align: center;
+    font-size: 17px;
+    color: #191a1b;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .cinema-list-tag {
-    position: fixed;
-    height: 50px;
-    width: 100%;
-    top: 44px;
-    right: 0;
-    text-align: center;
-    background-color: #fff;
-    z-index: 2000;
-    .cinema-list-tag-name {
+  position: fixed;
+  height: 40px;
+  width: 100%;
+  top: 44px;
+  right: 0;
+  text-align: center;
+  background-color: #fff;
+  z-index: 2000;
+  margin-bottom: 50px;
+  .cinema-list-tag-name {
     position: relative;
-     label {
-    float: left;
-    width: 33.3%;
-    line-height: 49px;
-    font-size: 14px;
-    color: #191a1b;
-    letter-spacing: -.2px;
-}
-
-}
-}
-
-.big {
-  padding: 15px;
-  margin-top: 10px;
-  p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-family: "微软雅黑";
-  }
-  .space {
-    display: flex;
-    justify-content: space-between;
-    p {
-      width: 190px;
-      height: 20px;
+    label {
+      float: left;
+      width: 33.3%;
+      line-height: 49px;
+      font-size: 14px;
       color: #191a1b;
-      font-size: 15px;
-    }
-    span {
-      font-size: 15px;
-      color: #ff5f16;
-      display: block;
-      width: 70px;
-      text-align: center;
-    }
-    b {
-      font-size: 11px;
-      font-weight: 400;
-      margin-right: 2px;
-    }
-    i {
-      color: #ff5f16;
-      font-size: 10px;
-      font-style: normal;
-      margin-left: 3px;
+      letter-spacing: -0.2px;
     }
   }
-  .site {
-    display: flex;
-    justify-content: space-between;
-    p {
-      width: 213px;
-      height: 20px;
-      color: #797d82;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-    span {
-      font-size: 11px;
-      color: #797d82;
-      display: block;
-      margin-top: 5px;
-      width: 70px;
-      text-align: center;
+}
+.scroll {
+  // overflow: hidden;
+  // padding-bottom: 100px;
+  padding-top: 80px;
+  .mag {
+    margin-bottom: 50px;
+
+    .big {
+      padding: 15px 10px 10px 10px;
+
+      p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-family: "微软雅黑";
+      }
+      .space {
+        display: flex;
+        justify-content: space-between;
+        p {
+          width: 190px;
+          height: 20px;
+          color: #191a1b;
+          font-size: 15px;
+        }
+        span {
+          font-size: 15px;
+          color: #ff5f16;
+          display: block;
+          width: 70px;
+          text-align: center;
+        }
+        b {
+          font-size: 11px;
+          font-weight: 400;
+          margin-right: 2px;
+        }
+        i {
+          color: #ff5f16;
+          font-size: 10px;
+          font-style: normal;
+          margin-left: 3px;
+        }
+      }
+      .site {
+        display: flex;
+        justify-content: space-between;
+        p {
+          width: 213px;
+          height: 20px;
+          color: #797d82;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+        span {
+          font-size: 11px;
+          color: #797d82;
+          display: block;
+          margin-top: 5px;
+          width: 70px;
+          text-align: center;
+        }
+      }
     }
   }
 }

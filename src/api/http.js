@@ -28,6 +28,16 @@ axios.interceptors.request.use(
     if (info == "city") {
       host = "mall.film-ticket.city.list";
     }
+    //影院详情页
+    if (info == "schedule") {
+      host = "mall.film-ticket.schedule.list";
+    }
+    if (info == "cinemaHead") {
+      host = "mall.film-ticket.cinema.info";
+    }
+    if (info == "cinemaPhoto") {
+      host = "mall.film-ticket.film.cinema-show-film";
+    }
 
     axios.interceptors.response.use(
 

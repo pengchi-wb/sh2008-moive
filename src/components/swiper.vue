@@ -4,7 +4,7 @@
       <!-- 插槽（坑） -->
       <slot></slot>
     </div>
-    <div class="buy">选座购票</div>
+    
   </div>
   
 </template>
@@ -30,7 +30,7 @@ export default {
     });
   },
 };
-</script>99
+</script>
 
 <style lang="scss" scoped>
 

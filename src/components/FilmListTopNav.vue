@@ -16,16 +16,43 @@
     </ul>
   </div>
 </template>
-<!-- scoped只在本页面进行渲染-->
+
+<script>
+// import Bscroll from "better-scroll";
+// export default {
+//    updated(){
+//      this.bs = new Bscroll(".scroll", {
+//       pullUpLoad: true,
+//       pullDownRefresh: true,
+//       click: true,
+//     });
+
+//     //获取拖动高度
+//     this.bs.on("scroll", (position) => {
+//       // console.log( position.y)
+//       if (position.y > 20) {
+//         document.querySelector(".nav").style.backgroundColor='#fff';
+
+//       }
+//     });
+//   }
+// }
+</script>
+
 <style lang="scss" scoped>
 .nav {
   width: 100%;
   height: 50px;
   line-height: 50px;
   border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  background: white;
+  z-index: 1000;
   ul {
     display: flex;
     text-align: center;
+
     li {
       flex: 1;
       display: flex;

@@ -18,6 +18,7 @@
       </router-link>
     </ul>
   </div>
+ 
 </template>
 
 <script>
@@ -32,9 +33,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .nav {
-    position: fixed;
-    bottom: 0;
+  position: fixed;
+    bottom: 0px;
     left: 0;
     border-top: 1px solid #ccc;
     height: 50px;
@@ -43,6 +45,7 @@ export default {
     color: #7a7e83;
     width: 100%;
     z-index: 200;
+    padding-bottom: 10px;
 
     ul {
         display: flex;
@@ -63,4 +66,5 @@ export default {
         }
     }
 }
+
 </style>

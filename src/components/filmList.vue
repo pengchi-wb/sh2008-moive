@@ -18,7 +18,7 @@
           <div>{{ item.name }}</div>
           <div v-if="type == 1" class="grades">
             <span>观众评分 </span>
-            <span class="grade">{{ item.grade }}</span>
+            <span class="grade">{{ item.grade }} 分</span>
           </div>
           <div class="a">
             <span>主演：{{ item.actors | parseActors }}</span>
@@ -33,6 +33,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -127,6 +128,7 @@ export default {
       pullDownRefresh: true,
       click: true,
     });
+    
     this.bs.on("pullingUp", () => {
       this.getData();
       this.bs.finishPullUp();
@@ -135,21 +137,26 @@ export default {
       this.getData();
       this.bs.finishPullDown();
     });
-
+    //获取拖动高度
+    
   }
+  
 };
 </script>
 
 <style lang="scss" scoped>
 .list {
-  margin-bottom: 50px;
+  // overflow: hidden;
+margin-bottom: 60px;
+margin-top: 58px;
   .item {
-    margin-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: flex;
     color: #797d82;
     font-size: 13px;
     border-bottom: 1px solid #ededed;
+  
 
     .left {
       width: 77px;
@@ -217,7 +224,7 @@ export default {
     }
   }
 }
-.scroll {
-  overflow: hidden;
-}
+// .scroll {
+//   overflow: hidden;
+// }
 </style>
